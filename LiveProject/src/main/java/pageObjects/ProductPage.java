@@ -1,10 +1,13 @@
 package pageObjects;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ProductPage {
+import java.io.IOException;
+
+public class ProductPage extends BasePage {
 
     public WebDriver driver;
     By size = By.cssSelector("[data-product-attribute='1']");
@@ -14,27 +17,27 @@ public class ProductPage {
 
     By homepageLink = By.xpath("//*[@id=\"wrapper\"]/div/nav/ol/li[1]/a/span");
 
-    public ProductPage(WebDriver driver) {
-        this.driver = driver;
+    public ProductPage() throws IOException {
+        super();
     }
 
-    public WebElement getSize() {
+    public WebElement getSize() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(size);
     }
 
-    public WebElement getQuantityIncrease(){
+    public WebElement getQuantityIncrease() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(quantityIncrease);
     }
 
-    public WebElement getQuantityDecrease(){
-        return driver.findElement(quantityDecrease);
-    }
-
-    public WebElement getAddToCartBtn(){
+    public WebElement getAddToCartBtn() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(addToCartBtn);
     }
 
-    public WebElement getHomepageLink(){
+    public WebElement getHomepageLink() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(homepageLink);
     }
 }

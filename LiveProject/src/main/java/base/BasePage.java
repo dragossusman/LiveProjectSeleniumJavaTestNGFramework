@@ -4,21 +4,23 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class BasePage {
+import static base.WebDriverInstance.driver;
 
-    public static WebDriver driver;
+public class BasePage {
     public String url;
     public static Properties prop;
 
@@ -29,17 +31,7 @@ public class BasePage {
     }
 
     public static WebDriver getDriver() throws IOException {
-        if (prop.getProperty("browser").equalsIgnoreCase("chrome")) {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\src\\main\\java\\drivers\\chromedriver.exe");
-            driver = new ChromeDriver();
-        } else if (prop.getProperty("browser").equalsIgnoreCase("firefox")) {
-            System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\src\\main\\java\\drivers\\geckodriver.exe");
-            driver = new FirefoxDriver();
-        }
-
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
-        return driver;
+        return WebDriverInstance.getDriver();
     }
 
     public String getUrl() throws IOException {
@@ -47,13 +39,18 @@ public class BasePage {
         return this.url;
     }
 
-    public void takeSnapShot(WebDriver driver) throws IOException {
-        File srcFile = (File)((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+    public void takeSnapShot(String name) throws IOException {
+        File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
         File destFile = new File(System.getProperty("user.dir") + "\\target\\screenshots\\" + timestamp() + ".png");
         FileUtils.copyFile(srcFile, destFile);
     }
 
     public static String timestamp() {
         return (new SimpleDateFormat("yyyy-MM-dd HH-mm-ss")).format(new Date());
+    }
+
+    public static void waitForElementInvisible(WebElement element, int timer) throws IOException {
+        WebDriverWait wait = new WebDriverWait(getDriver(), timer);
+        wait.until(ExpectedConditions.invisibilityOf(element));
     }
 }

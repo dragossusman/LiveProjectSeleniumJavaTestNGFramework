@@ -1,10 +1,13 @@
 package pageObjects;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class OrderFormDelivery {
+import java.io.IOException;
+
+public class OrderFormDelivery extends BasePage {
 
     public WebDriver driver;
 
@@ -21,55 +24,37 @@ public class OrderFormDelivery {
     By invoiceSameAddCheckboc = By.cssSelector("input#use_same_address");
     By continueBtn = By.cssSelector("button[name='confirm-addresses']");
 
-    public OrderFormDelivery(WebDriver driver) {
-        this.driver = driver;
+    public OrderFormDelivery() throws IOException {
+        super();
     }
 
-    public WebElement getFirstNameField() {
-        return driver.findElement(firstNameField);
-    }
-
-    public WebElement getLastnameField() {
-        return driver.findElement(lastNameField);
-    }
-
-    public WebElement getCompanyField() {
-        return driver.findElement(companyNameField);
-    }
-
-    public WebElement getAddressField() {
+    public WebElement getAddressField() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(addressField);
     }
 
-    public WebElement getAddressCompField() {
-        return driver.findElement(addressComplementField);
-    }
-
-    public WebElement getCityField() {
+    public WebElement getCityField() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(cityField);
     }
 
-    public WebElement getStateDropdown() {
+    public WebElement getStateDropdown() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(stateDropdown);
     }
 
-    public WebElement getPostcodeField() {
+    public WebElement getPostcodeField() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(postcodeField);
     }
 
-    public WebElement getCountryDropdown() {
+    public WebElement getCountryDropdown() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(countryDropdown);
     }
 
-    public WebElement getPhoneField() {
-        return driver.findElement(phoneField);
-    }
-
-    public WebElement getInvoiceSameAddCheckbox() {
-        return driver.findElement(invoiceSameAddCheckboc);
-    }
-
-    public WebElement getContinueBtn() {
+    public WebElement getContinueBtn() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(continueBtn);
     }
 }

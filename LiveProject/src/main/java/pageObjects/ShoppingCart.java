@@ -1,14 +1,17 @@
 package pageObjects;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ShoppingCart {
+import java.io.IOException;
+
+public class ShoppingCart extends BasePage {
 
     public WebDriver driver;
 
-    By promoLink = By.linkText("Have a promo code?");
+    By havePromo = By.cssSelector(".promo-code-button .collapse-button");
     By promoTextbox = By.cssSelector("input[name='discount_name']");
     By promoAddBtn = By.cssSelector("form[method='post']  span");
     By proceedToCheckoutBtn = By.cssSelector(".cart-detailed-actions .btn-primary");
@@ -16,35 +19,42 @@ public class ShoppingCart {
     By deleteItemTwo = By.cssSelector(".cart-items .cart-item:nth-of-type(2) .float-xs-left");
     By totalValue = By.cssSelector(".cart-total .value");
 
-    public ShoppingCart(WebDriver driver) {
-        this.driver = driver;
+    public ShoppingCart() throws IOException {
+        super();
     }
 
-    public WebElement getPromoLink(){
-        return driver.findElement(promoLink);
+    public WebElement getHavePromo() throws IOException {
+        this.driver = getDriver();
+        return driver.findElement(havePromo);
     }
 
-    public WebElement getPromoTextbox() {
+    public WebElement getPromoTextbox() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(promoTextbox);
     }
 
-    public WebElement getPromoAddBtn() {
+    public WebElement getPromoAddBtn() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(promoAddBtn);
     }
 
-    public WebElement getProceedCheckoutBtn() {
+    public WebElement getProceedCheckoutBtn() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(proceedToCheckoutBtn);
     }
 
-    public WebElement getDeleteItemOne() {
+    public WebElement getDeleteItemOne() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(deleteItemOne);
     }
 
-    public WebElement getDeleteItemTwo() {
+    public WebElement getDeleteItemTwo() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(deleteItemTwo);
     }
 
-    public WebElement getTotalAmount() {
+    public WebElement getTotalAmount() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(totalValue);
     }
 }

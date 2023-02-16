@@ -1,10 +1,13 @@
 package pageObjects;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class Homepage {
+import java.io.IOException;
+
+public class Homepage extends BasePage {
 
     public WebDriver driver;
 
@@ -30,20 +33,13 @@ public class Homepage {
     By testStoreLink = By.linkText("TEST STORE");
     By aboutMeLink = By.linkText("ABOUT ME");
 
-    public Homepage(WebDriver driver) {
-        this.driver = driver;
+    public Homepage() throws IOException {
+        super();
     }
 
-    public WebElement getToggle(){
+    public WebElement getToggle() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(toggle);
-    }
-
-    public WebElement getHomePageLink(){
-        return driver.findElement(homepageLink);
-    }
-
-    public WebElement getAccordionLink() {
-        return driver.findElement(accordionLink);
     }
 
     public WebElement getActionsLink() {
@@ -110,7 +106,8 @@ public class Homepage {
         return driver.findElement(tablesLink);
     }
 
-    public WebElement getTestStoreLink() {
+    public WebElement getTestStoreLink() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(testStoreLink);
     }
 

@@ -1,10 +1,13 @@
 package pageObjects;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ShopHomePage {
+import java.io.IOException;
+
+public class ShopHomePage extends BasePage {
 
     public WebDriver driver;
 
@@ -17,39 +20,18 @@ public class ShopHomePage {
     By productSeven = By.linkText("Mug The Adventure Begins");
     By productEight = By.linkText("Mug Today Is A Good Day");
 
-    public ShopHomePage(WebDriver driver) {
-        this.driver = driver;
+    public ShopHomePage() throws IOException {
+        super();
     }
 
-    public WebElement getProdOne() {
+    public WebElement getProdOne() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(productOne);
     }
 
-    public WebElement getProdTwo() {
+    public WebElement getProdTwo() throws IOException {
+        this.driver = getDriver();
         return driver.findElement(productTwo);
     }
 
-    public WebElement getProdThree() {
-        return driver.findElement(productThree);
-    }
-
-    public WebElement getProdFour() {
-        return driver.findElement(productFour);
-    }
-
-    public WebElement getProdFive() {
-        return driver.findElement(productFive);
-    }
-
-    public WebElement getProdSix() {
-        return driver.findElement(productSix);
-    }
-
-    public WebElement getProdSeven() {
-        return driver.findElement(productSeven);
-    }
-
-    public WebElement getProdEight() {
-        return driver.findElement(productEight);
-    }
 }
