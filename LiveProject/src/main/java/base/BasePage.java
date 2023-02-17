@@ -24,6 +24,8 @@ public class BasePage {
     public String url;
     public static Properties prop;
 
+    public static String screenShotDestinationPath;
+
     public BasePage() throws IOException {
         prop = new Properties();
         FileInputStream fileInputStream = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\java\\resources\\config.properties");
@@ -39,16 +41,25 @@ public class BasePage {
         return this.url;
     }
 
-    public void takeSnapShot(String name) throws IOException {
+    public static String takeSnapShot(String name) throws IOException {
         File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
-        File destFile = new File(System.getProperty("user.dir") + "\\target\\screenshots\\" + timestamp() + ".png");
-        FileUtils.copyFile(srcFile, destFile);
+        String destFile = System.getProperty("user.dir") + "\\target\\screenshots\\" + timestamp() + ".png";
+        screenShotDestinationPath = destFile;
+        try{
+            FileUtils.copyFile(srcFile, new File(destFile));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return screenShotDestinationPath;
     }
 
     public static String timestamp() {
         return (new SimpleDateFormat("yyyy-MM-dd HH-mm-ss")).format(new Date());
     }
 
+    public static String getScreenShotDestinationPath(){
+        return screenShotDestinationPath;
+    }
     public static void waitForElementInvisible(WebElement element, int timer) throws IOException {
         WebDriverWait wait = new WebDriverWait(getDriver(), timer);
         wait.until(ExpectedConditions.invisibilityOf(element));

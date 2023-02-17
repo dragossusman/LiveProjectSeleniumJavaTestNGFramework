@@ -1,6 +1,7 @@
 package uk.co.automationtesting;
 
 import base.BasePage;
+import base.ExtentManager;
 import base.Hooks;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterTest;
@@ -21,6 +22,7 @@ public class OrderCompleteTest extends Hooks {
 
     @Test
     public void endToEndTest() throws IOException, InterruptedException {
+        ExtentManager.log("Starting OrderCompleteTest...");
         Homepage homepage = new Homepage();
         // click the toggle button first
         homepage.getToggle().click();
@@ -31,16 +33,19 @@ public class OrderCompleteTest extends Hooks {
         Thread.sleep(3000);
         // click the first item
         ShopHomePage shopHome = new ShopHomePage();
+        ExtentManager.pass("Reached the shop homepage...");
         shopHome.getProdOne().click();
 
         // select M size
         ProductPage productPage = new ProductPage();
+        ExtentManager.pass("Reached the shop product page...");
         Select option = new Select(productPage.getSize());
         option.selectByVisibleText("M");
         // increase quantity by 1
         productPage.getQuantityIncrease().click();
         // press add to cart button
         productPage.getAddToCartBtn().click();
+        ExtentManager.pass("Added product to basket...");
 
         // press proceed to checkout
         ShopContentPanel shopContentPanel = new ShopContentPanel();
@@ -49,6 +54,7 @@ public class OrderCompleteTest extends Hooks {
         Thread.sleep(5000);
         // click promo code link
         ShoppingCart shoppingCart = new ShoppingCart();
+        ExtentManager.pass("Reached shopping cart page...");
         shoppingCart.getHavePromo().click();
         // add a promo code
         shoppingCart.getPromoTextbox().sendKeys("20OFF");
